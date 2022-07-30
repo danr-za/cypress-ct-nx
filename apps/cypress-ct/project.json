@@ -1,0 +1,83 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cypress-ct/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/cypress-ct",
+        "index": "apps/cypress-ct/src/index.html",
+        "baseHref": "/",
+        "main": "apps/cypress-ct/src/main.tsx",
+        "polyfills": "apps/cypress-ct/src/polyfills.ts",
+        "tsConfig": "apps/cypress-ct/tsconfig.app.json",
+        "assets": [
+          "apps/cypress-ct/src/favicon.ico",
+          "apps/cypress-ct/src/assets"
+        ],
+        "styles": ["apps/cypress-ct/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/cypress-ct/src/environments/environment.ts",
+              "with": "apps/cypress-ct/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "cypress-ct:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cypress-ct:build:development"
+        },
+        "production": {
+          "buildTarget": "cypress-ct:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cypress-ct/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/cypress-ct"],
+      "options": {
+        "jestConfig": "apps/cypress-ct/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
