@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "cypress-ct": "apps/cypress-ct",
-    "cypress-ct-e2e": "apps/cypress-ct-e2e"
+    "cypress-ct-e2e": "apps/cypress-ct-e2e",
+    "ui": "libs/ui"
   }
 }
